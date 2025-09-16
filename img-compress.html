@@ -16,15 +16,26 @@
             --primary-dark: #4f46e5;
             --secondary: #10b981;
             --accent: #f97316;
-            --dark: #1f2937;
-            --darker: #111827;
-            --light: #f9fafb;
-            --gray: #6b7280;
-            --light-gray: #e5e7eb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #f9fafb;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e5e7eb;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
             --border-radius: 12px;
             --border-radius-lg: 16px;
-            --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #e5e7eb;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
         
         * {
@@ -32,23 +43,24 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         
         body {
-            background: linear-gradient(to bottom right, var(--darker), var(--dark));
-            color: var(--light);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
             padding-bottom: 2rem;
         }
         
         header {
-            background: rgba(31, 41, 55, 0.8);
-            backdrop-filter: blur(10px);
+            background: var(--bg-secondary);
             padding: 1.5rem;
             text-align: center;
-            box-shadow: var(--box-shadow);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--card-shadow);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
         
         .logo {
@@ -64,8 +76,28 @@
         
         .tagline {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--text-secondary);
             font-weight: 300;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
         }
         
         .container {
@@ -75,19 +107,12 @@
         }
         
         .card {
-            background: rgba(31, 41, 55, 0.7);
-            backdrop-filter: blur(10px);
+            background: var(--bg-secondary);
             border-radius: var(--border-radius-lg);
-            box-shadow: var(--box-shadow);
+            box-shadow: var(--card-shadow);
             padding: 2.5rem;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
         }
         
         .tool-container {
@@ -103,7 +128,7 @@
         }
         
         .upload-area {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border: 2px dashed var(--border-color);
             border-radius: var(--border-radius-lg);
             padding: 3rem 2rem;
             text-align: center;
@@ -114,29 +139,13 @@
             overflow: hidden;
         }
         
-        .upload-area::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
         .upload-area:hover {
             border-color: var(--primary);
         }
         
-        .upload-area:hover::before {
-            opacity: 1;
-        }
-        
         .upload-area.dragover {
-            border-color: var(--secondary);
-            background-color: rgba(16, 185, 129, 0.05);
+            background-color: rgba(99, 102, 241, 0.05);
+            border-color: var(--primary);
         }
         
         .upload-icon {
@@ -170,7 +179,7 @@
         }
         
         .btn:disabled {
-            background: var(--gray);
+            background: var(--text-secondary);
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -187,7 +196,7 @@
         .slider-container {
             margin: 2rem 0;
             padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--bg-tertiary);
             border-radius: var(--border-radius);
         }
         
@@ -196,6 +205,7 @@
             justify-content: space-between;
             margin-bottom: 1rem;
             font-weight: 500;
+            color: var(--text-primary);
         }
         
         .slider {
@@ -230,7 +240,7 @@
             justify-content: space-between;
             margin-top: 0.5rem;
             font-size: 0.9rem;
-            color: var(--light-gray);
+            color: var(--text-secondary);
         }
         
         .image-preview {
@@ -249,14 +259,9 @@
         .preview-card {
             text-align: center;
             padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--bg-tertiary);
             border-radius: var(--border-radius);
             transition: var(--transition);
-        }
-        
-        .preview-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
         }
         
         .preview-title {
@@ -271,18 +276,13 @@
             max-height: 280px;
             border-radius: var(--border-radius);
             margin: 1rem 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-        }
-        
-        .preview-image:hover {
-            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .file-info {
             font-size: 0.9rem;
-            color: var(--light-gray);
-            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
             padding: 0.7rem;
             border-radius: var(--border-radius);
             margin-top: 1rem;
@@ -294,7 +294,7 @@
             border-radius: var(--border-radius);
             margin-top: 2rem;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
         }
         
         .savings {
@@ -304,7 +304,7 @@
         }
         
         .ad-container {
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--bg-tertiary);
             border-radius: var(--border-radius);
             padding: 1.5rem;
             text-align: center;
@@ -313,12 +313,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
         }
         
         .ad-label {
             font-size: 0.8rem;
-            color: var(--gray);
+            color: var(--text-secondary);
             text-align: center;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
@@ -326,13 +326,12 @@
         }
         
         footer {
-            background: rgba(31, 41, 55, 0.8);
-            backdrop-filter: blur(10px);
-            color: white;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             text-align: center;
             padding: 2.5rem;
             margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--border-color);
         }
         
         .features {
@@ -343,13 +342,13 @@
         }
         
         .feature-card {
-            background: rgba(31, 41, 55, 0.7);
+            background: var(--bg-secondary);
             padding: 2rem;
             border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            box-shadow: var(--card-shadow);
             text-align: center;
             transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
         }
         
         .feature-card:hover {
@@ -373,7 +372,7 @@
         }
         
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
+            border: 4px solid rgba(0, 0, 0, 0.1);
             border-left: 4px solid var(--secondary);
             border-radius: 50%;
             width: 40px;
@@ -409,7 +408,7 @@
         
         .stat-label {
             font-size: 0.9rem;
-            color: var(--light-gray);
+            color: var(--text-secondary);
         }
         
         h2 {
@@ -425,7 +424,7 @@
         h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--light);
+            color: var(--text-primary);
         }
         
         .btn-container {
@@ -433,35 +432,6 @@
             gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
-        }
-        
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-        
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: var(--dark);
-            color: var(--light);
-            text-align: center;
-            border-radius: var(--border-radius);
-            padding: 0.5rem;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.9rem;
-        }
-        
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
         }
         
         .format-badge {
@@ -473,12 +443,20 @@
             font-size: 0.8rem;
             margin-left: 0.5rem;
         }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo"><i class="fas fa-compress-alt"></i> ImageCompress Pro</div>
         <div class="tagline">Optimize your images without losing quality</div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
     </header>
 
     <div class="container">
@@ -609,6 +587,42 @@
     </footer>
 
     <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+        
+        // Set the theme
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            let theme = 'light';
+            if (!document.documentElement.getAttribute('data-theme')) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                theme = 'dark';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        });
+
+        // Image compression functionality
         document.addEventListener('DOMContentLoaded', function() {
             // Elements
             const dropArea = document.getElementById('dropArea');
